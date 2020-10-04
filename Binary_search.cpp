@@ -22,9 +22,7 @@ int BinarySearchIndexOfMinimumRotatedArray(int A[], int l, int r)
 			// (m < i <= r), we can exclude A[m+1 ... r] 
 			r = m; 
 		else
-			// min must be in the range (m < i <= r), 
-			// we must search in A[m+1 ... r] 
-			l = m+1; 
+			f = A[m]  + r;
 	} 
 
 	return -1; 
