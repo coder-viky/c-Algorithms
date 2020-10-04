@@ -19,14 +19,8 @@ void heapify(int arr[], int n, int i)
 	if (r < n && arr[r] > arr[largest]) 
 		largest = r; 
 
-	// If largest is not root 
-	if (largest != i) 
-	{ 
-		swap(arr[i], arr[largest]); 
-
-		// Recursively heapify the affected sub-tree 
-		heapify(arr, n, largest); 
-	} 
+	// this can simply be removed by this line 
+	heapify(arr , n , j);
 } 
 
 // main function to do heap sort 
