@@ -1,42 +1,36 @@
-// C++ program to implement recursive Binary Search 
-#include <bits/stdc++.h> 
-using namespace std; 
-
-// A recursive binary search function. It returns 
-// location of x in given array arr[l..r] is present, 
-// otherwise -1 
-int binarySearch(int arr[], int l, int r, int x) 
+int BinarySearchIndexOfMinimumRotatedArray(int A[], int l, int r) 
 { 
-	if (r >= l) { 
-		int mid = l + (r - l) / 2; 
+	// extreme condition, size zero or size two 
+	int m; 
 
-		// If the element is present at the middle 
-		// itself 
-		if (arr[mid] == x) 
-			return mid; 
+	// Precondition: A[l] > A[r] 
+	if( A[l] <= A[r] ) 
+		return l; 
 
-		// If element is smaller than mid, then 
-		// it can only be present in left subarray 
-		if (arr[mid] > x) 
-			return binarySearch(arr, l, mid - 1, x); 
+	while( l <= r ) 
+	{ 
+		// Termination condition (l will eventually falls on r, and r always 
+		// point minimum possible value) 
+		if( l == r ) 
+			return l; 
 
-		// Else the element can only be present 
-		// in right subarray 
-		return binarySearch(arr, mid + 1, r, x); 
+		m = l + (r-l)/2; // 'm' can fall in first pulse, 
+						// second pulse or exactly in the middle 
+
+		if( A[m] < A[r] ) 
+			// min can't be in the range 
+			// (m < i <= r), we can exclude A[m+1 ... r] 
+			r = m; 
+		else
+			// min must be in the range (m < i <= r), 
+			// we must search in A[m+1 ... r] 
+			l = m+1; 
 	} 
 
-	// We reach here when element is not 
-	// present in array 
 	return -1; 
 } 
 
-int main(void) 
+int BinarySearchIndexOfMinimumRotatedArray(int A[], int size) 
 { 
-	int arr[] = { 2, 3, 4, 10, 40 }; 
-	int x = 10; 
-	int n = sizeof(arr) / sizeof(arr[0]); 
-	int result = binarySearch(arr, 0, n - 1, x); 
-	(result == -1) ? cout << "Element is not present in array"
-				: cout << "Element is present at index " << result; 
-	return 0; 
+	return BinarySearchIndexOfMinimumRotatedArray(A, 0, size-1); 
 } 
